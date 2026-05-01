@@ -1,7 +1,5 @@
 import { setEnvValue } from "@/lib/set-env-value";
-import { Paradym } from "@paradym/sdk";
-import { SdJwtCredentialTemplateAttributes } from "@paradym/sdk/build/generated";
-import { readFile, writeFile } from "node:fs/promises";
+import { Paradym, type SdJwtCredentialTemplateAttributes } from "@paradym/sdk";
 
 const PRESENTATION_TEMPLATE_NAME = "Verify EUDI PID (Banking Example)";
 const TRUSTED_ENTITY_NAME = "Utopia Government";
@@ -267,7 +265,6 @@ async function getOrCreateVerifierCertificate() {
       type: "verifierRoot",
       keyType: "P-256",
       countryName: "NL",
-      commonName: TRUSTED_ENTITY_NAME,
       issuerAlternativeNameUrl: "https://example.com",
     },
   });

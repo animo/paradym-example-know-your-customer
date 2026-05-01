@@ -3,7 +3,7 @@
 import { env } from "@/env";
 import { paradym } from "@/lib/paradym";
 import { ApiResponse } from "@/types/api-error";
-import type { OpenId4VcIssuance } from "@paradym/sdk/build/generated/types.gen";
+import type { OpenId4VcIssuance } from "@paradym/sdk";
 
 export async function createIssuanceRequest(): Promise<
   ApiResponse<OpenId4VcIssuance>

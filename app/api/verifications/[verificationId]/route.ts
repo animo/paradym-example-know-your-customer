@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { env } from "@/env";
 import { paradym } from "@/lib/paradym";
-import { OpenId4VcVerificationStatus } from "@paradym/sdk/build/generated";
+import type { OpenId4VcVerificationStatus } from "@paradym/sdk";
 
 type RouteContext = {
   params: Promise<{

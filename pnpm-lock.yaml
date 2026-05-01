@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@paradym/sdk':
-        specifier: ^2.3.0
-        version: 2.3.0
+        specifier: ^2.4.0
+        version: 2.4.0
       '@radix-ui/react-slot':
         specifier: ^1.2.4
         version: 1.2.4(@types/react@19.2.14)(react@19.2.4)
@@ -313,8 +313,8 @@ packages:
     resolution: {integrity: sha512-XlOlEbQcE9fmuXxrVTXCTlG2nlRXa9Rj3rr5Ue/+tX+nmkgbX720YHh0VR3hBF9xDvwnb8D2shVGOwNx+ulArw==}
     engines: {node: '>= 20.19.0'}
 
-  '@paradym/sdk@2.3.0':
-    resolution: {integrity: sha512-uwf19huvQSxbzD05BF1UqUy33MD+SxunO0PbAx14mSKi2fwKzx+NcLNgjCfvotKn5RlcYKCYgrWlG8PmhkpvTQ==}
+  '@paradym/sdk@2.4.0':
+    resolution: {integrity: sha512-JYJFercfNU29ALyhokaf7JmGYsZX4yayAETz3j5Aal9jFJ2buD0Eoe9c6c6c/pgrcPKeC1f5EFt1iaKKeOt9oA==}
     engines: {node: '>=20.19.0'}
 
   '@radix-ui/react-compose-refs@1.1.2':
@@ -896,7 +896,7 @@ snapshots:
 
   '@noble/hashes@2.0.1': {}
 
-  '@paradym/sdk@2.3.0':
+  '@paradym/sdk@2.4.0':
     dependencies:
       '@noble/hashes': 2.0.1
 

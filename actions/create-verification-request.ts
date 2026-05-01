@@ -3,7 +3,7 @@
 import { env } from "@/env";
 import { paradym } from "@/lib/paradym";
 import { ApiResponse } from "@/types/api-error";
-import type { OpenId4VcVerification } from "@paradym/sdk/build/generated/types.gen";
+import type { OpenId4VcVerification } from "@paradym/sdk";
 
 export async function createVerificationRequest(): Promise<
   ApiResponse<OpenId4VcVerification>

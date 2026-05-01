@@ -6,6 +6,9 @@ Issuance and verification are handled through the Paradym API:
 - Issuance: create and issue an EUDI PID credential.
 - Verification: verify that credential through a presentation flow.
 
+You can read more about the full flow here:
+https://docs.paradym.id/api-and-dashboard/example-project
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org) (v20+ LTS recommended)
