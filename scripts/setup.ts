@@ -136,11 +136,77 @@ const EUDI_PID_CREDENTIAL = {
   } satisfies SdJwtCredentialTemplateAttributes,
 };
 
-const { background: _unusedBackground, ...EUDI_PID_PRESENTATION_CREDENTIAL } =
-  EUDI_PID_CREDENTIAL;
+const EUDI_PID_PRESENTATION_CREDENTIAL = {
+  format: 'sd-jwt-vc' as const,
+  name: PRESENTATION_TEMPLATE_NAME,
+  description: EUDI_PID_CREDENTIAL.type,
+  type: 'urn:eudi:pid:1',
+
+  attributes: {
+    family_name: {
+      type: "string",
+    },
+    given_name: {
+      type: "string",
+    },
+    birthdate: {
+      type: "date",
+    },
+    place_of_birth: {
+      type: "object",
+      properties: {
+        country: {
+          type: "string",
+        },
+        region: {
+          type: "string",
+        },
+        locality: {
+          type: "string",
+        },
+      },
+    },
+    nationalities: {
+      type: "array",
+      items: {
+        type: "string",
+      },
+    },
+    address: {
+      type: "object",
+      properties: {
+        formatted: {
+          type: "string",
+        },
+        street_address: {
+          type: "string",
+        },
+        house_number: {
+          type: "string",
+        },
+        locality: {
+          type: "string",
+        },
+        region: {
+          type: "string",
+        },
+        postal_code: {
+          type: "string",
+        },
+        country: {
+          type: "string",
+        },
+      },
+    },
+  } satisfies SdJwtCredentialTemplateAttributes
+}
+
+
+
 
 const paradym = new Paradym({
   apiKey: process.env.PARADYM_API_KEY!,
+
 });
 
 const PARADYM_PROJECT_ID = process.env.PARADYM_PROJECT_ID as string;
@@ -177,17 +243,16 @@ async function setup() {
 async function getOrCreateIssuerCertificate() {
   const certificateList = await paradym.certificates.getAllCertificates({
     path: { projectId: PARADYM_PROJECT_ID },
+    query: {
+      "page[size]": 1,
+      "filter[keyType]": "P-256",
+      "filter[type]": "issuerRoot",
+      "filter[status]": "active",
+    }
   });
 
-  const existingCertificate = certificateList.data.data.find(
-    (certificate) =>
-      certificate.type === "issuerRoot" &&
-      certificate.keyType === "P-256" &&
-      certificate.status === "active" &&
-      Boolean(certificate.certificate),
-  );
-
-  if (existingCertificate?.certificate) {
+  const existingCertificate = certificateList.data.data[0];
+  if (existingCertificate) {
     console.info("Using existing issuer certificate. Skipping creation.");
     return existingCertificate.certificate;
   }
@@ -245,15 +310,15 @@ async function getOrCreateIssuerCertificate() {
 async function getOrCreateVerifierCertificate() {
   const certificateList = await paradym.certificates.getAllCertificates({
     path: { projectId: PARADYM_PROJECT_ID },
+    query: {
+      "page[size]": 1,
+      "filter[keyType]": "P-256",
+      "filter[type]": "verifierRoot",
+      "filter[status]": "active",
+    }
   });
 
-  const existing = certificateList.data.data.find(
-    (c) =>
-      c.type === "verifierRoot" &&
-      c.keyType === "P-256" &&
-      c.status === "active",
-  );
-
+  const existing = certificateList.data.data[0];
   if (existing) {
     console.info("Using existing verifier certificate. Skipping creation.");
     return existing;
@@ -277,12 +342,13 @@ async function getOrCreateCredentialTemplate() {
   const credentialTemplateList =
     await paradym.templates.credentials.sdJwtVc.getAllCredentialTemplates({
       path: { projectId: PARADYM_PROJECT_ID },
+      query: {
+        "search[name]": CREDENTIAL_TEMPLATE_NAME,
+        "page[size]": 1
+      }
     });
 
-  const existingTemplate = credentialTemplateList.data.data.find(
-    (template) => template.name === CREDENTIAL_TEMPLATE_NAME,
-  );
-
+  const existingTemplate = credentialTemplateList.data.data[0];
   if (existingTemplate) {
     console.info("Using existing credential template. Skipping creation.");
     return existingTemplate;
@@ -314,13 +380,14 @@ async function getOrCreateTrustedEntity(certificate: string) {
   const trustedEntityList = await paradym.trustedEntities.getAllTrustedEntities(
     {
       path: { projectId: PARADYM_PROJECT_ID },
+      query: {
+        "search[name]": TRUSTED_ENTITY_NAME,
+        "page[size]": 1
+      }
     },
   );
 
-  const existingTrustedEntity = trustedEntityList.data.data.find(
-    (entity) => entity.name === TRUSTED_ENTITY_NAME,
-  );
-
+  const existingTrustedEntity = trustedEntityList.data.data[0]; 
   const hasCertificate = existingTrustedEntity?.certificates.some(
     (cert) => cert.certificate === certificate,
   );
@@ -369,12 +436,13 @@ async function getOrCreatePresentationTemplate(trustedIssuerId: string) {
   const presentationTemplates =
     await paradym.templates.presentations.getAllPresentationTemplates({
       path: { projectId: PARADYM_PROJECT_ID },
+      query: {
+        "search[name]": PRESENTATION_TEMPLATE_NAME,
+        "page[size]": 1
+      }
     });
 
-  const existingTemplate = presentationTemplates.data.data.find(
-    (template) => template.name === PRESENTATION_TEMPLATE_NAME,
-  );
-
+  const existingTemplate = presentationTemplates.data.data[0]
   if (existingTemplate) {
     console.info("Using existing presentation template. Skipping creation.");
     return existingTemplate;
@@ -404,4 +472,8 @@ async function getOrCreatePresentationTemplate(trustedIssuerId: string) {
   return presentationTemplate.data;
 }
 
-setup();
+setup().catch((error) => {
+  console.error("Error during setup:");
+  console.dir(error, {depth: null});
+  process.exit(1);
+});

@@ -1,5 +1,6 @@
 "use client";
 
+import { getVerificationStatus } from "@/actions/get-verification-status";
 import { Button } from "@/components/ui/button";
 import {
   Calendar,
@@ -24,12 +25,6 @@ type VerificationStatus =
   | "failed"
   | "expired";
 
-type StatusResponse = {
-  verificationId: string;
-  status: VerificationStatus;
-  errorMessage?: string;
-};
-
 const POLLING_INTERVAL_MS = 8000;
 
 export function VerificationCard({
@@ -51,27 +46,22 @@ export function VerificationCard({
 
     const fetchStatus = async () => {
       try {
-        const response = await fetch(`/api/verifications/${verificationId}`, {
-          cache: "no-store",
-        });
-        if (!response.ok) {
+        const response = await getVerificationStatus(verificationId);
+        if (!active || response.status === "error" || !response.data.status) {
           return;
         }
 
-        const data = (await response.json()) as StatusResponse;
-        if (!active) {
-          return;
-        }
+        const { status: currentStatus, errorMessage } = response.data;
 
-        setStatus(data.status);
-        setErrorMessage(data.errorMessage);
+        setStatus(currentStatus);
+        setErrorMessage(errorMessage);
 
-        if (data.status === "verified") {
+        if (currentStatus === "verified") {
           router.push("/dashboard");
           return;
         }
 
-        if (data.status === "failed" || data.status === "expired") {
+        if (currentStatus === "failed" || currentStatus === "expired") {
           if (timer) {
             clearInterval(timer);
           }
