@@ -41,7 +41,7 @@ https://docs.paradym.id/api-and-dashboard/example-project
 	B. Manual setup:
 	Configure everything manually in the Paradym platform and add the required IDs yourself.
 	Documentation:
-	https://docs.paradym.id/api-and-dashboard/banking-kyc-example
+	[KYC example](https://docs.paradym.id/api-and-dashboard/example-project)
 
 4. Start the app:
 	```bash
