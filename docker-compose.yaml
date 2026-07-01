@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+  client:
+    image: ghcr.io/animo/paradym-example-know-your-customer:main
+    environment:
+      PARADYM_API_KEY:
+      PARADYM_PROJECT_ID: cmoie0one00hx01s6vbsmlshu
+      PARADYM_PRESENTATION_TEMPLATE_ID: cmoifp8rm00ie01s69kvs2u9l
+      PARADYM_CREDENTIAL_TEMPLATE_ID: cmoifodu600id01s6acwn91li
+    ports:
+     - 38217:3000
+    networks:
+     - traefik
+    logging:
+      driver: json-file
+    deploy:
+      labels:
+        traefik.enable: 'true'
+        traefik.http.routers.paradym-example-know-your-customer.entrypoints: web-secure
+        traefik.http.routers.paradym-example-know-your-customer.rule: Host(`kyc-demo.paradym.id`)
+        traefik.http.routers.paradym-example-know-your-customer.service: paradym-example-know-your-customer-service
+        traefik.http.routers.paradym-example-know-your-customer.tls.certresolver: zerossl
+        traefik.http.services.paradym-example-know-your-customer-service.loadbalancer.server.port: '3000'
+      update_config:
+        delay: 10s
+      placement:
+        constraints:
+         - node.role == worker
+         - node.labels.type == community
+networks:
+  traefik:
+    external: true

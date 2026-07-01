@@ -1,0 +1,8 @@
+# pnpm >=10 blocks dependency build scripts by default, and pnpm 11 makes an
+# ignored build a hard install error (ERR_PNPM_IGNORED_BUILDS). The only
+# affected package here is `sharp` (pulled in transitively by Next.js), which
+# is unused because Next image optimization is disabled (images.unoptimized).
+# Downgrade the failure to a warning so `pnpm install` succeeds in CI/Docker.
+strictDepBuilds: false
+onlyBuiltDependencies:
+  - sharp
