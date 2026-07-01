@@ -1,0 +1,22 @@
+# General
+.git
+.gitignore
+**/node_modules
+**/.env
+**/.DS_Store
+*.log
+
+# Build outputs
+**/build
+**/dist
+**/.react-router
+
+# Expo/Android artifacts
+apps/app/.expo
+apps/app/.gradle
+apps/app/android
+apps/app/ios
+
+# Editor/IDE
+.vscode
+.idea
