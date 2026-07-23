@@ -12,7 +12,7 @@ export async function createVerificationRequest(): Promise<
   try {
     response = await paradym.openId4Vc.verification.createRequest({
       path: {
-        projectId: env.PARADYM_PROJECT_ID,
+        projectId: env.PARADYM_WALLET_ID,
       },
       body: {
         presentationTemplateId: env.PARADYM_PRESENTATION_TEMPLATE_ID,

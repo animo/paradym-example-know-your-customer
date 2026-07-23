@@ -209,11 +209,11 @@ const paradym = new Paradym({
 
 });
 
-const PARADYM_PROJECT_ID = process.env.PARADYM_PROJECT_ID as string;
+const PARADYM_WALLET_ID = process.env.PARADYM_WALLET_ID as string;
 const PARADYM_API_KEY = process.env.PARADYM_API_KEY as string;
 
-if (!PARADYM_PROJECT_ID) {
-  throw new Error("Missing required environment variable: PARADYM_PROJECT_ID");
+if (!PARADYM_WALLET_ID) {
+  throw new Error("Missing required environment variable: PARADYM_WALLET_ID");
 }
 
 if (!PARADYM_API_KEY) {
@@ -242,7 +242,7 @@ async function setup() {
 
 async function getOrCreateIssuerCertificate() {
   const certificateList = await paradym.certificates.getAllCertificates({
-    path: { projectId: PARADYM_PROJECT_ID },
+    path: { projectId: PARADYM_WALLET_ID },
     query: {
       "page[size]": 1,
       "filter[keyType]": "P-256",
@@ -259,7 +259,7 @@ async function getOrCreateIssuerCertificate() {
 
   try {
     const certificate = await paradym.certificates.createCertificate({
-      path: { projectId: PARADYM_PROJECT_ID },
+      path: { projectId: PARADYM_WALLET_ID },
       body: {
         type: "issuerRoot",
         keyType: "P-256",
@@ -288,7 +288,7 @@ async function getOrCreateIssuerCertificate() {
 
     const refreshedCertificateList =
       await paradym.certificates.getAllCertificates({
-        path: { projectId: PARADYM_PROJECT_ID },
+        path: { projectId: PARADYM_WALLET_ID },
       });
 
     const conflictedExistingCertificate =
@@ -309,7 +309,7 @@ async function getOrCreateIssuerCertificate() {
 
 async function getOrCreateVerifierCertificate() {
   const certificateList = await paradym.certificates.getAllCertificates({
-    path: { projectId: PARADYM_PROJECT_ID },
+    path: { projectId: PARADYM_WALLET_ID },
     query: {
       "page[size]": 1,
       "filter[keyType]": "P-256",
@@ -325,7 +325,7 @@ async function getOrCreateVerifierCertificate() {
   }
 
   const certificate = await paradym.certificates.createCertificate({
-    path: { projectId: PARADYM_PROJECT_ID },
+    path: { projectId: PARADYM_WALLET_ID },
     body: {
       type: "verifierRoot",
       keyType: "P-256",
@@ -341,7 +341,7 @@ async function getOrCreateVerifierCertificate() {
 async function getOrCreateCredentialTemplate() {
   const credentialTemplateList =
     await paradym.templates.credentials.sdJwtVc.getAllCredentialTemplates({
-      path: { projectId: PARADYM_PROJECT_ID },
+      path: { projectId: PARADYM_WALLET_ID },
       query: {
         "search[name]": CREDENTIAL_TEMPLATE_NAME,
         "page[size]": 1
@@ -369,7 +369,7 @@ async function getOrCreateCredentialTemplate() {
           },
         },
       },
-      path: { projectId: PARADYM_PROJECT_ID },
+      path: { projectId: PARADYM_WALLET_ID },
     });
 
   console.info("Created credential template");
@@ -379,7 +379,7 @@ async function getOrCreateCredentialTemplate() {
 async function getOrCreateTrustedEntity(certificate: string) {
   const trustedEntityList = await paradym.trustedEntities.getAllTrustedEntities(
     {
-      path: { projectId: PARADYM_PROJECT_ID },
+      path: { projectId: PARADYM_WALLET_ID },
       query: {
         "search[name]": TRUSTED_ENTITY_NAME,
         "page[size]": 1
@@ -400,7 +400,7 @@ async function getOrCreateTrustedEntity(certificate: string) {
       );
       const updated = await paradym.trustedEntities.updateTrustedEntity({
         path: {
-          projectId: PARADYM_PROJECT_ID,
+          projectId: PARADYM_WALLET_ID,
           trustedEntityId: existingTrustedEntity.id,
         },
         body: {
@@ -425,7 +425,7 @@ async function getOrCreateTrustedEntity(certificate: string) {
         },
       ],
     },
-    path: { projectId: PARADYM_PROJECT_ID },
+    path: { projectId: PARADYM_WALLET_ID },
   });
 
   console.info("Created trusted entity");
@@ -435,7 +435,7 @@ async function getOrCreateTrustedEntity(certificate: string) {
 async function getOrCreatePresentationTemplate(trustedIssuerId: string) {
   const presentationTemplates =
     await paradym.templates.presentations.getAllPresentationTemplates({
-      path: { projectId: PARADYM_PROJECT_ID },
+      path: { projectId: PARADYM_WALLET_ID },
       query: {
         "search[name]": PRESENTATION_TEMPLATE_NAME,
         "page[size]": 1
@@ -465,7 +465,7 @@ async function getOrCreatePresentationTemplate(trustedIssuerId: string) {
           keyType: "P-256",
         },
       },
-      path: { projectId: PARADYM_PROJECT_ID },
+      path: { projectId: PARADYM_WALLET_ID },
     });
 
   console.info("Created presentation template");
