@@ -10,7 +10,7 @@ export const env = createEnv({
     PARADYM_API_KEY: z.string().min(1),
     PARADYM_CREDENTIAL_TEMPLATE_ID: z.string().min(1),
     PARADYM_PRESENTATION_TEMPLATE_ID: z.string().min(1),
-    PARADYM_PROJECT_ID: z.string().min(1)
+    PARADYM_WALLET_ID: z.string().min(1)
   },
   client: {},
   experimental__runtimeEnv: {},

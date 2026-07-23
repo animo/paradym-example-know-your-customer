@@ -18,7 +18,7 @@ export async function getVerificationStatus(
   try {
     response = await paradym.openId4Vc.verification.getVerificationSession({
       path: {
-        projectId: env.PARADYM_PROJECT_ID,
+        projectId: env.PARADYM_WALLET_ID,
         openId4VcVerificationId: verificationId,
       },
     });

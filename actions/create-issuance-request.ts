@@ -12,7 +12,7 @@ export async function createIssuanceRequest(): Promise<
   try {
     response = await paradym.openId4Vc.issuance.createOffer({
       path: {
-        projectId: env.PARADYM_PROJECT_ID,
+        projectId: env.PARADYM_WALLET_ID,
       },
       body: {
         credentials: [
