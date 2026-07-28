@@ -19,7 +19,7 @@ importers:
         version: 0.13.10(typescript@5.7.3)(zod@4.3.6)
       autoprefixer:
         specifier: ^10.4.20
-        version: 10.4.27(postcss@8.5.8)
+        version: 10.4.27(postcss@8.5.18)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -62,7 +62,7 @@ importers:
         version: 19.2.3(@types/react@19.2.14)
       postcss:
         specifier: ^8.5
-        version: 8.5.8
+        version: 8.5.18
       tailwindcss:
         specifier: ^4.2.0
         version: 4.2.1
@@ -629,11 +629,6 @@ packages:
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
-  nanoid@3.3.11:
-    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
   nanoid@3.3.16:
     resolution: {integrity: sha512-bzlKTyNJ7+LdGIIwy8ijFpIqEQIvafahV7eYykJ8Cvh42EdJeODoJ6gUJXpQJvej1BddH8OqTXZNE/KfbWAu8Q==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -673,8 +668,8 @@ packages:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.8:
-    resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
+  postcss@8.5.18:
+    resolution: {integrity: sha512-xdB1oSLHbz1vRWgCDalrCqEFTWzFlhqFC5tIHLMOSUIjhm3XXQ1qrFy8S/ESr1JYRRXqM3c1QFiMZUJdUTqyMQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   react-day-picker@9.13.2:
@@ -1008,7 +1003,7 @@ snapshots:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.2.1
       '@tailwindcss/oxide': 4.2.1
-      postcss: 8.5.8
+      postcss: 8.5.18
       tailwindcss: 4.2.1
 
   '@types/node@22.19.15':
@@ -1023,13 +1018,13 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  autoprefixer@10.4.27(postcss@8.5.8):
+  autoprefixer@10.4.27(postcss@8.5.18):
     dependencies:
       browserslist: 4.28.1
       caniuse-lite: 1.0.30001779
       fraction.js: 5.3.4
       picocolors: 1.1.1
-      postcss: 8.5.8
+      postcss: 8.5.18
       postcss-value-parser: 4.2.0
 
   baseline-browser-mapping@2.10.8: {}
@@ -1136,8 +1131,6 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  nanoid@3.3.11: {}
-
   nanoid@3.3.16: {}
 
   next@16.2.11(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
@@ -1176,9 +1169,9 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.8:
+  postcss@8.5.18:
     dependencies:
-      nanoid: 3.3.11
+      nanoid: 3.3.16
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
